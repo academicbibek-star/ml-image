@@ -2,21 +2,23 @@ import tensorflow as tf
 AUTOTUNE= tf.data.AUTOTUNE
 
 #configuration
-DATASET_DIR = "dataset"
+DATASET_DIR = "/mnt/d/DATA/POTATO DISEASE/datasets"
+#DATASET_DIR = 'dataset'
 IMAGE_SIZE = (128,128)
 BATCH_SIZE=32
 SEED = 42
 
-CLASS_NAMES= ["early_blt", "healthy", "late_blt"]
+CLASS_NAMES= ["EARLYBLT", "HEALTHY", "LATEBLT"]
 
-def load_datasets():
+def load_datasets(image_size=IMAGE_SIZE):
     # Training dataset
     train_ds=tf.keras.utils.image_dataset_from_directory(
         DATASET_DIR,
         labels="inferred",
         label_mode='int',
         class_names=CLASS_NAMES,
-        image_size=IMAGE_SIZE,
+        image_size=image_size,
+        pad_to_aspect_ratio=True,
         batch_size=BATCH_SIZE,
         validation_split=0.2,
         subset="training",
@@ -30,7 +32,8 @@ def load_datasets():
         labels="inferred",
         label_mode="int",
         class_names=CLASS_NAMES,
-        image_size=IMAGE_SIZE,
+        image_size=image_size,
+        pad_to_aspect_ratio=True,
         batch_size=BATCH_SIZE,
         validation_split=0.2,
         subset="validation",
@@ -39,6 +42,7 @@ def load_datasets():
     )
     # Normalize pixel values and prefetch batches
     def preprocess(images, labels):
+        
         images = tf.cast(images, tf.float32) / 255.0
         return images, labels
     train_ds = train_ds.map(

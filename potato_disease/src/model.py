@@ -1,11 +1,26 @@
 import tensorflow as tf
 from tensorflow.keras import layers,models
+
+
 def build_model(input_shape=(128,128,3), num_classes=3):
+    '''
+    input_shape: size of the input image default: (128,128,3) \n
+    num_classes= The output default: 3 \n
+    returns a model: \n
+    Input, 
+    Conv2D 32, 
+    maxpool 2x2,
+    Conv2D 64, 
+    maxpool 2x2,
+    Conv2D 128, 
+    maxpool 2x2,
+    Dense(128), activation = ReLU for all
+    Dense(number_classes) and softmax activation
+    '''
     model =models.Sequential([
 
         #Input
         layers.Input(shape=input_shape),
-
         #convolution block 1
         layers.Conv2D(
             32,
@@ -46,7 +61,7 @@ def build_model(input_shape=(128,128,3), num_classes=3):
     return model
 
 if "__name__" == "__main__":
-    model=build_model()
+    model=build_model(input_shape=(224,224,3))
     model.summary()
 
     #Test forward propagation
@@ -57,3 +72,4 @@ if "__name__" == "__main__":
     print("Predicted probabilities:", output.numpy())
     print("Probability sum:", tf.reduce_sum(output).numpy())
 
+# build_model()
