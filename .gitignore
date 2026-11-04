@@ -1,3 +1,9 @@
 mlimage-key.pub
 mlimage-key
 ~*
+*.png
+*.jpg
+*.keras
+__init__.py
+__pycache__/
+*.docx

@@ -56,7 +56,8 @@ def plot_history(history):
 
 def train():
     #1. Load Datasets
-    train_ds, val_ds = load_datasets(image_size=(224,224))
+    # train_ds, val_ds = load_datasets(image_size=(224,224))
+    train_ds, val_ds, test_ds = load_datasets()
 
     #2. Build CNN
     model=build_model(input_shape=(224,224,3))

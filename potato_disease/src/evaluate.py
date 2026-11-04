@@ -9,6 +9,8 @@ from sklearn.metrics import (
     classification_report, confusion_matrix, accuracy_score
 )
 
+from data_loader import load_datasets
+
 MODEL_PATH = Path("models/potato_cnn.keras")
 TEST_DIR =Path("potato_test")
 RESULTS_DIR=Path("results")
@@ -51,7 +53,8 @@ def evaluate_model():
     print("Loading trained model....")
     model=tf.keras.models.load_model(MODEL_PATH)
     print("Loading test dataset...")
-    test_ds = load_test_dataset()
+    # test_ds = load_test_dataset()
+    _, _, test_ds = load_datasets()
     print("\nEvaluating model...")
     test_loss, test_accuracy = model.evaluate(
         test_ds,
